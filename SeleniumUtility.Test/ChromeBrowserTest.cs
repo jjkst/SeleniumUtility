@@ -34,8 +34,11 @@ namespace SeleniumUtility.Test
         public void Type()
         {            
             Chrome.Navigate(testUrl);
-            Chrome.Click(By.LinkText("Basic Auth"));
-            var f = Chrome.GetWebDriver().FindElementsByTagName("input");
+            Chrome.Click(By.LinkText("Form Authentication"));
+            Chrome.Type(By.Id("username"), "Testuser");
+            Chrome.Type(By.Id("password"), "Testpassword");
+            Chrome.Click(By.CssSelector("button[type='submit'] i"));
+            Assert.Contains("Your username is invalid!", Chrome.GetText(By.Id("flash")));
         }
         
         public void Dispose()

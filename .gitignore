@@ -1,6 +1,6 @@
 .vs
 .vscode
-SeleniumUtility.Test/obj
-SeleniumUtility.Test/bin
-SeleniumUtility.Driver/obj
-SeleniumUtility.Driver/bin
+SeleniumUtility.Test/obj/*
+SeleniumUtility.Test/bin/*
+SeleniumUtility.Driver/obj/*
+SeleniumUtility.Driver/bin/*

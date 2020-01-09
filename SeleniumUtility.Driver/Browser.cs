@@ -152,13 +152,56 @@ namespace SeleniumUtility.Driver
 
         #endregion
 
-        #region GetTextAndValues, SelectedTextAndValues
+        #region GetTextAndValues, SelectedTextAndValues, Table
 
         public string GetText(By by, string frame = "", string window = "")
         {
             var val = string.Empty;
             var elements = GetElements(by, frame, window);
             return elements == null ? val : elements.Aggregate(val, (current, element) => current + element.Text);
+        }
+
+        public DataTable GetTable(By by, string frame = "", string window = "")
+        {
+            var tableId = GetElements(by, frame, window).First();
+            var th = tableId.FindElements(By.CssSelector("th"));
+            var tr = tableId.FindElements(By.CssSelector("tbody > tr"));
+            if (tableId.TagName == "tbody") tr = tableId.FindElements(By.CssSelector("tr"));
+            var dt = new DataTable();
+
+            if (th.Count == 0)
+            {
+                for (var i = 0; i < 12; i++)
+                {
+                    dt.Columns.Add("Column" + i);
+                }
+            }
+
+            var colNum = 1;
+            foreach (var header in th)
+            {
+                var colName = header.Text;
+                if (dt.Columns.Contains(colName))
+                {
+                    colName += colNum;
+                    colNum++;
+                }
+                dt.Columns.Add(colName);
+            }
+
+            foreach (var row in tr)
+            {
+                var dataRow = dt.NewRow();
+                var i = 0;
+                foreach (var td in row.FindElements(By.CssSelector("td")))
+                {
+                    dataRow[i] = td.Text;
+                    i++;
+                }
+                dt.Rows.Add(dataRow);
+            }
+
+            return dt;
         }
 
         #endregion
@@ -169,8 +212,13 @@ namespace SeleniumUtility.Driver
             if (string.IsNullOrEmpty(fieldvalue)) throw new ArgumentException("Value is empty");
             var element = GetElements(by, frame, window).First();
             if (!fieldvalue.Contains(@":\")) element.Clear();
-            var msg = AcceptAlert();
-            if (!string.IsNullOrEmpty(msg)) ErrorLog.Add(msg);
+            try
+            {
+                var msg = AcceptAlert();
+                if (!string.IsNullOrEmpty(msg)) ErrorLog.Add(msg);
+            }
+            catch { }
+
             if (fieldvalue.Contains("(") || fieldvalue.Contains("&") || fieldvalue.Contains("."))
             {
                 ((IJavaScriptExecutor)GetWebDriver()).ExecuteScript("arguments[0].value ='" + fieldvalue + "';", element);
@@ -222,50 +270,7 @@ namespace SeleniumUtility.Driver
             return alertmsg;
         }
 
-        #endregion
-
-        public DataTable GetTableData(By by, string frame = "", string window = "")
-        {
-            var tableId = GetElements(by, frame, window).First();
-            var th = tableId.FindElements(By.CssSelector("th"));
-            var tr = tableId.FindElements(By.CssSelector("tbody > tr"));
-            if (tableId.TagName == "tbody") tr = tableId.FindElements(By.CssSelector("tr"));
-            var dt = new DataTable();
-
-            if (th.Count == 0)
-            {
-                for (var i = 0; i < 12; i++)
-                {
-                    dt.Columns.Add("Column" + i);
-                }
-            }
-
-            var colNum = 1;
-            foreach (var header in th)
-            {
-                var colName = header.Text;
-                if (dt.Columns.Contains(colName))
-                {
-                    colName += colNum;
-                    colNum++;
-                }
-                dt.Columns.Add(colName);
-            }
-
-            foreach (var row in tr)
-            {
-                var dataRow = dt.NewRow();
-                var i = 0;
-                foreach (var td in row.FindElements(By.CssSelector("td")))
-                {
-                    dataRow[i] = td.Text;
-                    i++;
-                }
-                dt.Rows.Add(dataRow);
-            }
-
-            return dt;
-        }
+        #endregion        
 
         public string GetCurrentFrameId()
         {
