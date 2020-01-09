@@ -1,0 +1,8 @@
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\bin\Debug\netstandard2.0\SeleniumUtility.Driver.deps.json
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\bin\Debug\netstandard2.0\SeleniumUtility.Driver.dll
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\obj\Debug\netstandard2.0\SeleniumUtility.Driver.csprojAssemblyReference.cache
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\obj\Debug\netstandard2.0\SeleniumUtility.Driver.AssemblyInfoInputs.cache
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\obj\Debug\netstandard2.0\SeleniumUtility.Driver.AssemblyInfo.cs
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\bin\Debug\netstandard2.0\SeleniumUtility.Driver.pdb
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\obj\Debug\netstandard2.0\SeleniumUtility.Driver.dll
+C:\Users\jayaraka\source\repos\SeleniumUtility\SeleniumUtility.Driver\obj\Debug\netstandard2.0\SeleniumUtility.Driver.pdb
